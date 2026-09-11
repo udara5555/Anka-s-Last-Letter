@@ -16,6 +16,14 @@ public class DialogData : MonoBehaviour
     [Tooltip("Add a new element for every line of dialogue in this conversation.")]
     public DialogLine[] dialogueLines;
 
+    [Header("Story Progression")]
+    [Tooltip("Check this box if finishing this dialogue should advance the main story progress!")]
+    public bool advancesStory = false;
+
+    [Header("Events (Optional)")]
+    [Tooltip("Fires when the player clicks past the last sentence (e.g., to give an item or play a sound).")]
+    public UnityEngine.Events.UnityEvent onDialogFinished;
+
     // This is the function you select in your LocationController!
     public void StartDialog()
     {

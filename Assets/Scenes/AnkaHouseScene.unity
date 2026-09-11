@@ -887,10 +887,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   dialogueLines:
-  - characterName: Bjorn
-    sentence: Hey kiddo.... Do you need anything from me ?
+  - characterName: Mother
+    sentence: Doyou have any update son ?
   - characterName: Anka
-    sentence: Nope. Nothing new.
+    sentence: not yet mom....
   advancesStory: 0
   onDialogFinished:
     m_PersistentCalls:
@@ -955,7 +955,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6586712623233163598, guid: 9a3bac6b3d021fe48877d41fb2bb8120, type: 3}
+  m_Sprite: {fileID: 5476704120444222988, guid: 871276413c4313f4496f8d3065b4ab0c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -984,7 +984,7 @@ PrefabInstance:
     - target: {fileID: 1917941723030241901, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 8187733425174250808, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
+      objectReference: {fileID: 7518334770607096419, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
     - target: {fileID: 2794933248680044699, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1011,11 +1011,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2794933248680044699, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 294.418
+      value: 358.959
       objectReference: {fileID: 0}
     - target: {fileID: 2794933248680044699, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 171.63
+      value: 208.608
       objectReference: {fileID: 0}
     - target: {fileID: 2794933248680044699, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1047,11 +1047,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2794933248680044699, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 588.7006
+      value: 344
       objectReference: {fileID: 0}
     - target: {fileID: 2794933248680044699, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -69
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: 2794933248680044699, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1071,7 +1071,7 @@ PrefabInstance:
       objectReference: {fileID: 1357576829}
     - target: {fileID: 7476134731673369273, guid: 57bf8fdb7fa9016488d57293eda0c2a0, type: 3}
       propertyPath: m_Name
-      value: BlacksmithButton
+      value: MomButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

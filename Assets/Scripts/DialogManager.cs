@@ -101,6 +101,22 @@ public class DialogManager : MonoBehaviour
     private void EndDialog()
     {
         dialogPanel.SetActive(false);
+        
+        if (currentDialog != null)
+        {
+            // Safely advance the story using the Singleton instance
+            if (currentDialog.advancesStory && StoryManager.Instance != null)
+            {
+                StoryManager.Instance.AdvanceStory();
+            }
+
+            // Trigger any local scene events
+            if (currentDialog.onDialogFinished != null)
+            {
+                currentDialog.onDialogFinished.Invoke();
+            }
+        }
+
         currentDialog = null;
     }
 }
