@@ -577,3 +577,18 @@ MonoBehaviour:
   nameText: {fileID: 3087019953055089950}
   dialogText: {fileID: 4859072460784240582}
   characterImage: {fileID: 6622317482076554690}
+  characterDatabase:
+  - characterName: Anka
+    characterSprite: {fileID: 1699853499672422034, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
+  - characterName: Mother
+    characterSprite: {fileID: 7591829637570855568, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
+  - characterName: Elder
+    characterSprite: {fileID: 5038546546134467135, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
+  - characterName: Thomus
+    characterSprite: {fileID: 610807119, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
+  - characterName: Bjorn
+    characterSprite: {fileID: 4781753697366278009, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
+  - characterName: Miller
+    characterSprite: {fileID: 2134285615, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}
+  - characterName: Mira
+    characterSprite: {fileID: 5335609258833066285, guid: 79b3406e05d6a9b4a9d036edf769a320, type: 3}

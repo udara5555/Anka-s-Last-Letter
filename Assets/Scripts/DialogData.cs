@@ -1,15 +1,20 @@
 using UnityEngine;
 
+[System.Serializable]
+public struct DialogLine
+{
+    [Tooltip("Type the exact name of the character from your Manager's database")]
+    public string characterName;
+    
+    [TextArea(3, 5)]
+    public string sentence;
+}
+
 public class DialogData : MonoBehaviour
 {
     [Header("Dialog Content")]
-    public string characterName;
-    
-    [Tooltip("The portrait to display for this character")]
-    public Sprite characterSprite;
-    
-    [TextArea(3, 5)] 
-    public string[] sentences;
+    [Tooltip("Add a new element for every line of dialogue in this conversation.")]
+    public DialogLine[] dialogueLines;
 
     // This is the function you select in your LocationController!
     public void StartDialog()

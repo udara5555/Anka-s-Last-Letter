@@ -15,6 +15,10 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI dialogText;
     public Image characterImage;
 
+    [Header("Character Database")]
+    [Tooltip("Define all characters in your game here once!")]
+    public CharacterData[] characterDatabase;
+
     private DialogData currentDialog;
     private int currentSentenceIndex = 0;
 
@@ -45,13 +49,8 @@ public class DialogManager : MonoBehaviour
         currentSentenceIndex = 0;
         
         dialogPanel.SetActive(true);
-        nameText.text = currentDialog.characterName;
         
-        if (characterImage != null && currentDialog.characterSprite != null)
-        {
-            characterImage.sprite = currentDialog.characterSprite;
-        }
-        
+        // Display the first sentence immediately
         DisplayNextSentence();
     }
 
@@ -60,9 +59,37 @@ public class DialogManager : MonoBehaviour
         // Don't do anything if no dialog is active
         if (currentDialog == null) return;
 
-        if (currentSentenceIndex < currentDialog.sentences.Length)
+        if (currentSentenceIndex < currentDialog.dialogueLines.Length)
         {
-            dialogText.text = currentDialog.sentences[currentSentenceIndex];
+            // Grab the current line of dialogue
+            DialogLine currentLine = currentDialog.dialogueLines[currentSentenceIndex];
+
+            // Set the name and text
+            nameText.text = currentLine.characterName;
+            dialogText.text = currentLine.sentence;
+            
+            // Look up the matching sprite in our central database!
+            if (characterImage != null)
+            {
+                bool spriteFound = false;
+                foreach (CharacterData character in characterDatabase)
+                {
+                    if (character.characterName == currentLine.characterName)
+                    {
+                        characterImage.sprite = character.characterSprite;
+                        spriteFound = true;
+                        break;
+                    }
+                }
+                
+                // Optional: clear the image if they typed a name wrong or left it blank
+                if (!spriteFound)
+                {
+                    characterImage.sprite = null; 
+                }
+            }
+
+            // Move to the next index for the next click
             currentSentenceIndex++;
         }
         else
