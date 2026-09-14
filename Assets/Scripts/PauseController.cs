@@ -47,27 +47,41 @@ public class PauseController : MonoBehaviour
         // Check for right mouse button click using the new Input System
         if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
-            if (pausePanel != null)
-            {
-                // Toggle the pause panel visibility
-                bool isActive = !pausePanel.activeSelf;
-                pausePanel.SetActive(isActive);
+            TogglePause();
+        }
+    }
 
-                // Find all root canvases in the scene to disable/enable their interactions
-                Canvas[] allCanvases = FindObjectsOfType<Canvas>();
-                foreach (Canvas canvas in allCanvases)
+    // Call this method from your UI Button (On Click) instead of GameObject.SetActive
+    public void Resume()
+    {
+        if (pausePanel != null && pausePanel.activeSelf)
+        {
+            TogglePause();
+        }
+    }
+
+    public void TogglePause()
+    {
+        if (pausePanel != null)
+        {
+            // Toggle the pause panel visibility
+            bool isActive = !pausePanel.activeSelf;
+            pausePanel.SetActive(isActive);
+
+            // Find all root canvases in the scene to disable/enable their interactions
+            Canvas[] allCanvases = FindObjectsOfType<Canvas>();
+            foreach (Canvas canvas in allCanvases)
+            {
+                if (canvas.isRootCanvas)
                 {
-                    if (canvas.isRootCanvas)
+                    CanvasGroup group = canvas.GetComponent<CanvasGroup>();
+                    if (group == null)
                     {
-                        CanvasGroup group = canvas.GetComponent<CanvasGroup>();
-                        if (group == null)
-                        {
-                            group = canvas.gameObject.AddComponent<CanvasGroup>();
-                        }
-                        
-                        // Disable interactions for everything else when paused
-                        group.interactable = !isActive;
+                        group = canvas.gameObject.AddComponent<CanvasGroup>();
                     }
+                    
+                    // Disable interactions for everything else when paused
+                    group.interactable = !isActive;
                 }
             }
         }

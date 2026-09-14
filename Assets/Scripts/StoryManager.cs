@@ -8,6 +8,13 @@ public class StoryManager : MonoBehaviour
     [Tooltip("Tracks the player's overall progress in the story.")]
     public int currentStoryProgress = 0;
 
+    [Header("Save Tracking")]
+    [Tooltip("The name of the current scene, used for loading back in.")]
+    public string currentSceneName = "MapScene";
+    
+    [Tooltip("The exact filename of the background sprite in Resources/Backgrounds (e.g. 'Village')")]
+    public string currentBackgroundImageName = "";
+
     void Awake()
     {
         // Implement the Singleton pattern
