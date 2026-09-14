@@ -108,9 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveSlotUI
   slotIndex: 0
-  infoText: {fileID: 425966474963697070}
-  thumbnailImage: {fileID: 2578275731769625923}
-  emptySlotSprite: {fileID: 732160654908364898, guid: 0b792091b46c0034a8084ab4ae580234, type: 3}
+  infoText: {fileID: 0}
+  thumbnailImage: {fileID: 0}
+  emptySlotSprite: {fileID: 0}
 --- !u!1 &5786180912381942527
 GameObject:
   m_ObjectHideFlags: 0
