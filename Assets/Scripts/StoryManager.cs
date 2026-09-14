@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StoryManager : MonoBehaviour
 {
@@ -36,5 +38,52 @@ public class StoryManager : MonoBehaviour
     {
         currentStoryProgress++;
         Debug.Log("Story advanced to stage: " + currentStoryProgress);
+    }
+
+    void OnEnable()
+    {
+        // Subscribe to the sceneLoaded event
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        // Unsubscribe to prevent memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 1. Automatically track the scene name
+        currentSceneName = scene.name;
+
+        // 2. Automatically try to find the background image
+        // We look for objects named "BackgroundPanel" or "Background"
+        GameObject bgObj = GameObject.Find("BackgroundPanel");
+        if (bgObj == null) 
+        {
+            bgObj = GameObject.Find("Background");
+        }
+
+        if (bgObj != null)
+        {
+            // Check for UI Image
+            Image uiImage = bgObj.GetComponent<Image>();
+            if (uiImage != null && uiImage.sprite != null)
+            {
+                currentBackgroundImageName = uiImage.sprite.name;
+            }
+            else
+            {
+                // Check for 2D SpriteRenderer
+                SpriteRenderer spriteRenderer = bgObj.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null && spriteRenderer.sprite != null)
+                {
+                    currentBackgroundImageName = spriteRenderer.sprite.name;
+                }
+            }
+        }
+        
+        Debug.Log($"[StoryManager] Scene auto-tracked: {currentSceneName} | Background: {currentBackgroundImageName}");
     }
 }

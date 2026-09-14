@@ -3,25 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PauseController : MonoBehaviour
 {
-    private static PauseController _instance;
-
     [Tooltip("Assign the Pause Panel GameObject here.")]
     public GameObject pausePanel;
-
-    private void Awake()
-    {
-        // Prevent duplicates when reloading the scene
-        if (_instance == null)
-        {
-            _instance = this;
-            // Make this object persist across scene loads
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {

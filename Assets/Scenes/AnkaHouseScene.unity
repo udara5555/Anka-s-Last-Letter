@@ -954,7 +954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   dialogueLines:
   - characterName: Mother
-    sentence: Doyou have any update son ?
+    sentence: Do you have any update son ?
   - characterName: Anka
     sentence: not yet mom....
   advancesStory: 0
