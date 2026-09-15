@@ -58,4 +58,17 @@ public static class SaveManager
     {
         return File.Exists(GetSavePath(slotIndex));
     }
+
+    public static bool AnySaveExists()
+    {
+        // Check standard slots 0 through 3 (4 slots total as per UI)
+        for (int i = 0; i < 4; i++)
+        {
+            if (DoesSaveExist(i))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

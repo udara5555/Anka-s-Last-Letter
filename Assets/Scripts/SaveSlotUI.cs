@@ -116,12 +116,8 @@ public class SaveSlotUI : MonoBehaviour
                 StoryManager.Instance.currentBackgroundImageName = data.backgroundImageName;
                 StoryManager.Instance.currentSceneName = data.currentSceneName;
                 
-                // Transition back to the gameplay scene
-                // Make sure to load the scene the player was in
-                if (!string.IsNullOrEmpty(data.currentSceneName))
-                {
-                    UnityEngine.SceneManagement.SceneManager.LoadScene(data.currentSceneName);
-                }
+                // Transition back to the main Map Scene unconditionally
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Map");
             }
             else
             {
