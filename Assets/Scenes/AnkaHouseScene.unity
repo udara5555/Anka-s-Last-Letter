@@ -141,6 +141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!224 &359993258 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+  m_PrefabInstance: {fileID: 1524837793}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +650,9 @@ MonoBehaviour:
     sentence: How did you get this?
   - characterName: Mother
     sentence: The traveler said it had to reach you.
+  - characterName: Anka
+    sentence: Hmm..... I should pickup the letter and read it again to find if there
+      are any clues in it...
   advancesStory: 1
   onDialogFinished:
     m_PersistentCalls:
@@ -726,6 +734,152 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1524837793
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2016269369}
+    m_Modifications:
+    - target: {fileID: 3120577426854840708, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3120577426854840708, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5668723071718756358, guid: 08384dbd8371a7043a138029d7ef112b, type: 3}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.08448524
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.08448524
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.08448524
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -212
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 91
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -63
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 5668723071718756358, guid: 08384dbd8371a7043a138029d7ef112b, type: 3}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: itemName
+      value: Dad's Letter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: description
+      value: 'My dear Anka,
+
+
+        I am still alive, but I cannot return home
+        yet.
+
+        Go to Greyford. Find the old railway station and ask about
+        Platform Two.
+
+        Trust your instincts, and be careful who you talk
+        to.
+
+        I hope to see you again soon.
+
+
+        Always,
+
+        Dad'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654926039890033429, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: m_Name
+      value: LetterItemButton
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
 --- !u!1 &1553641446
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,6 +1147,7 @@ RectTransform:
   m_Children:
   - {fileID: 925732627}
   - {fileID: 1721438629}
+  - {fileID: 359993258}
   - {fileID: 1958725655}
   m_Father: {fileID: 1242454089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

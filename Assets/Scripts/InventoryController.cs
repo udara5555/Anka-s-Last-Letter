@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
@@ -14,6 +15,21 @@ public class InventoryController : MonoBehaviour
 
     [Tooltip("List of scene names where the backpack button should be hidden")]
     public string[] hideInScenes = { "Home", "OpenCutScene", "SaveScene" };
+
+    [Header("Pagination")]
+    [Tooltip("The parent transform that has the Grid Layout Group and holds the items")]
+    public Transform itemGrid;
+    
+    [Tooltip("Maximum number of items to show on a single page")]
+    public int itemsPerPage = 20;
+    
+    [Tooltip("Button to go to the next page")]
+    public Button nextButton;
+    
+    [Tooltip("Button to go to the previous page")]
+    public Button prevButton;
+    
+    private int currentPage = 0;
 
     private void Awake()
     {
@@ -76,6 +92,56 @@ public class InventoryController : MonoBehaviour
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(true);
+            UpdatePaginationUI();
+        }
+    }
+
+    public void NextPage()
+    {
+        if (itemGrid == null) return;
+        
+        int maxPage = Mathf.Max(0, (itemGrid.childCount - 1) / itemsPerPage);
+        if (currentPage < maxPage)
+        {
+            currentPage++;
+            UpdatePaginationUI();
+        }
+    }
+
+    public void PreviousPage()
+    {
+        if (currentPage > 0)
+        {
+            currentPage--;
+            UpdatePaginationUI();
+        }
+    }
+
+    public void UpdatePaginationUI()
+    {
+        if (itemGrid == null) return;
+
+        int totalItems = itemGrid.childCount;
+        int startIndex = currentPage * itemsPerPage;
+        int endIndex = startIndex + itemsPerPage;
+
+        // Loop through all children in the grid and enable only those for the current page
+        for (int i = 0; i < totalItems; i++)
+        {
+            Transform child = itemGrid.GetChild(i);
+            child.gameObject.SetActive(i >= startIndex && i < endIndex);
+        }
+
+        // Update Next/Prev button interactivity
+        if (prevButton != null)
+        {
+            prevButton.interactable = currentPage > 0;
+        }
+
+        if (nextButton != null)
+        {
+            int maxPage = Mathf.Max(0, (totalItems - 1) / itemsPerPage);
+            nextButton.interactable = currentPage < maxPage;
         }
     }
 
