@@ -6,6 +6,7 @@ public class ItemSaveData
     public string itemName;
     public string description;
     public string iconSpriteName; // Sprite name for Resources.Load("ItemIcons/<name>")
+    public bool hasBeenOpened;   // Tracks if item has been inspected by player
 }
 
 [Serializable]

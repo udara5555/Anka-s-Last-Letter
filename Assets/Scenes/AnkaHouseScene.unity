@@ -367,6 +367,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &899630948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 899630949}
+  - component: {fileID: 899630950}
+  m_Layer: 0
+  m_Name: StoryDialog (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &899630949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899630948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1553641447}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &899630950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899630948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4224858c441f94c9c76cc97470c80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogData
+  dialogueLines:
+  - characterName: Anka
+    sentence: The letter is dated THREE MONTHS AGO.
+  - characterName: Anka
+    sentence: 'He disappeared five years ago...
+
+      How did he write this three
+      months ago?'
+  - characterName: Anka
+    sentence: 'It says "If this letter reaches you, go to Greyford.
+
+      Find the
+      old railway station.
+
+      Ask about Platform Two."'
+  - characterName: Mother
+    sentence: There is no Platform Two anymore.
+  - characterName: Anka
+    sentence: You know about it?
+  - characterName: Mother
+    sentence: Your father didn't talk about Greyford much.
+  advancesStory: 1
+  onDialogFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &925732626
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +773,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - requiredStoryProgress: 2
+    onStoryEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 899630950}
+          m_TargetAssemblyTypeName: DialogData, Assembly-CSharp
+          m_MethodName: StartDialog
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   onNormalState:
     m_PersistentCalls:
       m_Calls:
@@ -845,7 +930,7 @@ PrefabInstance:
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: icon
       value: 
-      objectReference: {fileID: 5668723071718756358, guid: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, type: 3}
+      objectReference: {fileID: 5640078138975803200, guid: b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7, type: 3}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: itemName
       value: Dad's Letter
@@ -856,13 +941,16 @@ PrefabInstance:
 
 
         I am still alive, but I cannot return home
-        yet.
+        yet. There are things I must find out
 
-        Go to Greyford. Find the old railway station and ask about
-        Platform Two.
 
-        Trust your instincts, and be careful who you talk
-        to.
+        Go to Greyford. Find the
+        old railway station and ask about Platform Two.
+
+
+        Trust your instincts,
+        and be careful who you talk to.
+
 
         I hope to see you again soon.
 
@@ -870,6 +958,14 @@ PrefabInstance:
         Always,
 
         Dad'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: advancesStory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: requiredStoryProgress
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8654926039890033429, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: m_Name
@@ -911,6 +1007,7 @@ Transform:
   m_Children:
   - {fileID: 2000293351}
   - {fileID: 1351423763}
+  - {fileID: 899630949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1561774029 stripped

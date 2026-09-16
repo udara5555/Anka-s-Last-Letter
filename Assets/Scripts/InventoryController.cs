@@ -41,6 +41,13 @@ public class InventoryController : MonoBehaviour
     public Image popupImage;
     public TMP_Text popupDescriptionText;
 
+    [Header("New Item Badge")]
+    [Tooltip("GameObject containing the new item count badge (e.g. NewItemCount). Auto-detected under backpackButton if unassigned.")]
+    public GameObject newItemBadgeObject;
+
+    [Tooltip("TMP_Text component inside the badge that displays the number. Auto-detected if unassigned.")]
+    public TMP_Text newItemCountText;
+
     private void Awake()
     {
         if (Instance == null)
@@ -66,6 +73,8 @@ public class InventoryController : MonoBehaviour
         {
             popupPanel.SetActive(false);
         }
+
+        UpdateNewItemBadge();
     }
 
     private void OnEnable()
@@ -100,6 +109,8 @@ public class InventoryController : MonoBehaviour
         {
             inventoryPanel.SetActive(false);
         }
+
+        UpdateNewItemBadge();
     }
 
     public void OpenInventory()
@@ -219,6 +230,7 @@ public class InventoryController : MonoBehaviour
             {
                 itemUI.itemName = savedItem.itemName;
                 itemUI.description = savedItem.description;
+                itemUI.hasBeenOpened = savedItem.hasBeenOpened;
 
                 // Try to load the icon sprite from Resources/ItemIcons/
                 if (!string.IsNullOrEmpty(savedItem.iconSpriteName))
@@ -256,6 +268,65 @@ public class InventoryController : MonoBehaviour
         // Reset to page 0 and refresh
         currentPage = 0;
         UpdatePaginationUI();
+        UpdateNewItemBadge();
+    }
+
+    /// <summary>
+    /// Returns the number of items in the inventory grid that have not been opened/inspected yet.
+    /// </summary>
+    public int GetUnopenedItemCount()
+    {
+        if (itemGrid == null) return 0;
+
+        int count = 0;
+        foreach (Transform child in itemGrid)
+        {
+            InventoryItemUI itemUI = child.GetComponent<InventoryItemUI>();
+            if (itemUI != null && !itemUI.hasBeenOpened)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /// <summary>
+    /// Updates the NewItemCount badge UI. Shows badge with count if > 0, hides badge if count is 0.
+    /// </summary>
+    public void UpdateNewItemBadge()
+    {
+        // Auto-locate NewItemCount on backpackButton if unassigned
+        if (newItemBadgeObject == null && backpackButton != null)
+        {
+            Transform badgeTransform = backpackButton.transform.Find("NewItemCount");
+            if (badgeTransform != null)
+            {
+                newItemBadgeObject = badgeTransform.gameObject;
+            }
+        }
+
+        if (newItemBadgeObject != null && newItemCountText == null)
+        {
+            newItemCountText = newItemBadgeObject.GetComponentInChildren<TMP_Text>();
+        }
+
+        int unopenedCount = GetUnopenedItemCount();
+
+        if (newItemBadgeObject != null)
+        {
+            if (unopenedCount > 0)
+            {
+                newItemBadgeObject.SetActive(true);
+                if (newItemCountText != null)
+                {
+                    newItemCountText.text = unopenedCount.ToString();
+                }
+            }
+            else
+            {
+                newItemBadgeObject.SetActive(false);
+            }
+        }
     }
     /// <summary>
     /// Loads a sprite by name from Resources/ItemIcons/.
