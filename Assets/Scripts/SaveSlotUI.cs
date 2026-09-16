@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SaveSlotUI : MonoBehaviour
@@ -89,6 +90,29 @@ public class SaveSlotUI : MonoBehaviour
             newData.storyProgress = StoryManager.Instance.currentStoryProgress;
             newData.backgroundImageName = StoryManager.Instance.currentBackgroundImageName;
             newData.currentSceneName = StoryManager.Instance.currentSceneName;
+            newData.collectedItemNames = StoryManager.Instance.collectedItemNames.ToArray();
+
+            // Save full item data from the inventory grid
+            if (InventoryController.Instance != null && InventoryController.Instance.itemGrid != null)
+            {
+                int childCount = InventoryController.Instance.itemGrid.childCount;
+                var items = new System.Collections.Generic.List<ItemSaveData>();
+                
+                for (int i = 0; i < childCount; i++)
+                {
+                    InventoryItemUI itemUI = InventoryController.Instance.itemGrid.GetChild(i).GetComponent<InventoryItemUI>();
+                    if (itemUI != null)
+                    {
+                        ItemSaveData itemData = new ItemSaveData();
+                        itemData.itemName = itemUI.itemName;
+                        itemData.description = itemUI.description;
+                        itemData.iconSpriteName = (itemUI.icon != null) ? itemUI.icon.name : "";
+                        items.Add(itemData);
+                    }
+                }
+                
+                newData.collectedItems = items.ToArray();
+            }
         }
         else
         {
@@ -101,6 +125,9 @@ public class SaveSlotUI : MonoBehaviour
         // Refresh the UI to show the new save
         RefreshSlotUI();
     }
+
+    // Holds the item data to restore after the Map scene finishes loading
+    private static ItemSaveData[] pendingItemRestore = null;
 
     // Called by SaveMenuManager when in Load mode
     public void ExecuteLoad()
@@ -115,9 +142,32 @@ public class SaveSlotUI : MonoBehaviour
                 StoryManager.Instance.currentStoryProgress = data.storyProgress;
                 StoryManager.Instance.currentBackgroundImageName = data.backgroundImageName;
                 StoryManager.Instance.currentSceneName = data.currentSceneName;
+                if (data.collectedItemNames != null)
+                {
+                    StoryManager.Instance.collectedItemNames = new System.Collections.Generic.List<string>(data.collectedItemNames);
+                }
+
+                // Clear the current persistent inventory grid so we don't get duplicates when the map scene reloads
+                // We must unparent them immediately so they don't interfere with the new scene's Start() logic!
+                if (InventoryController.Instance != null && InventoryController.Instance.itemGrid != null)
+                {
+                    int childCount = InventoryController.Instance.itemGrid.childCount;
+                    for (int i = childCount - 1; i >= 0; i--)
+                    {
+                        Transform child = InventoryController.Instance.itemGrid.GetChild(i);
+                        child.SetParent(null); // Remove from grid instantly
+                        Destroy(child.gameObject); // Queue for memory cleanup
+                    }
+                }
+                
+                // Store the item data to restore after scene loads
+                pendingItemRestore = data.collectedItems;
+                
+                // Subscribe to sceneLoaded to restore items after the Map scene is ready
+                SceneManager.sceneLoaded += OnMapSceneLoadedForRestore;
                 
                 // Transition back to the main Map Scene unconditionally
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Map");
+                SceneManager.LoadScene("Map");
             }
             else
             {
@@ -127,6 +177,28 @@ public class SaveSlotUI : MonoBehaviour
         else
         {
             Debug.Log("Trying to load an empty slot!");
+        }
+    }
+
+    /// <summary>
+    /// Callback: after the Map scene loads, restore collected items into the inventory.
+    /// </summary>
+    private static void OnMapSceneLoadedForRestore(Scene scene, LoadSceneMode mode)
+    {
+        // Unsubscribe immediately so this only runs once
+        SceneManager.sceneLoaded -= OnMapSceneLoadedForRestore;
+
+        if (pendingItemRestore != null && pendingItemRestore.Length > 0)
+        {
+            if (InventoryController.Instance != null)
+            {
+                InventoryController.Instance.RestoreItemsFromSave(pendingItemRestore);
+            }
+            else
+            {
+                Debug.LogWarning("InventoryController not found after scene load — items not restored.");
+            }
+            pendingItemRestore = null;
         }
     }
 

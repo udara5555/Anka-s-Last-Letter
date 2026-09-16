@@ -32,6 +32,10 @@ public class InventoryController : MonoBehaviour
     
     private int currentPage = 0;
 
+    [Header("Item Restoration")]
+    [Tooltip("The ItemButton prefab to instantiate when restoring saved items")]
+    public GameObject itemButtonPrefab;
+
     [Header("Item Details Popup")]
     public GameObject popupPanel;
     public Image popupImage;
@@ -190,5 +194,111 @@ public class InventoryController : MonoBehaviour
         {
             inventoryPanel.SetActive(false);
         }
+    }
+
+    /// <summary>
+    /// Restores collected items into the inventory grid from saved data.
+    /// Called after loading a save file to populate the bag immediately.
+    /// </summary>
+    public void RestoreItemsFromSave(ItemSaveData[] savedItems)
+    {
+        if (savedItems == null || itemButtonPrefab == null || itemGrid == null)
+        {
+            Debug.LogWarning("Cannot restore items: missing prefab, grid, or save data.");
+            return;
+        }
+
+        foreach (ItemSaveData savedItem in savedItems)
+        {
+            // Instantiate a new ItemButton as a child of the inventory grid
+            GameObject newItemObj = Instantiate(itemButtonPrefab, itemGrid);
+            newItemObj.transform.localScale = Vector3.one;
+
+            InventoryItemUI itemUI = newItemObj.GetComponent<InventoryItemUI>();
+            if (itemUI != null)
+            {
+                itemUI.itemName = savedItem.itemName;
+                itemUI.description = savedItem.description;
+
+                // Try to load the icon sprite from Resources/ItemIcons/
+                if (!string.IsNullOrEmpty(savedItem.iconSpriteName))
+                {
+                    Sprite loadedIcon = LoadSpriteFromResources(savedItem.iconSpriteName);
+                    if (loadedIcon != null)
+                    {
+                        itemUI.icon = loadedIcon;
+                        if (itemUI.iconImage != null)
+                        {
+                            itemUI.iconImage.sprite = loadedIcon;
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Could not load icon sprite for '{savedItem.itemName}' (sprite: '{savedItem.iconSpriteName}')");
+                    }
+                }
+
+                // Show the name text since it's in the inventory
+                if (itemUI.nameTextObject != null)
+                {
+                    itemUI.nameTextObject.SetActive(true);
+                    TMPro.TMP_Text tmpText = itemUI.nameTextObject.GetComponent<TMPro.TMP_Text>();
+                    if (tmpText != null)
+                    {
+                        tmpText.text = savedItem.itemName;
+                    }
+                }
+            }
+
+            Debug.Log($"Restored '{savedItem.itemName}' to inventory from save data.");
+        }
+
+        // Reset to page 0 and refresh
+        currentPage = 0;
+        UpdatePaginationUI();
+    }
+    /// <summary>
+    /// Loads a sprite by name from Resources/ItemIcons/.
+    /// Handles both Single and Multiple sprite mode textures.
+    /// For a sprite named "letter_0", it tries loading from texture "letter" first.
+    /// </summary>
+    private Sprite LoadSpriteFromResources(string spriteName)
+    {
+        // First, try a direct load (works for Single sprite mode textures)
+        Sprite directLoad = Resources.Load<Sprite>($"ItemIcons/{spriteName}");
+        if (directLoad != null)
+        {
+            return directLoad;
+        }
+
+        // For Multiple sprite mode: sprite name is typically "textureName_N"
+        // Extract the base texture name by removing the last "_N" suffix
+        int lastUnderscore = spriteName.LastIndexOf('_');
+        if (lastUnderscore > 0)
+        {
+            string baseName = spriteName.Substring(0, lastUnderscore);
+            
+            // Load all sprites from that texture
+            Sprite[] allSprites = Resources.LoadAll<Sprite>($"ItemIcons/{baseName}");
+            foreach (Sprite s in allSprites)
+            {
+                if (s.name == spriteName)
+                {
+                    return s;
+                }
+            }
+        }
+
+        // Fallback: search ALL sprites in ItemIcons folder
+        Sprite[] allItemSprites = Resources.LoadAll<Sprite>("ItemIcons");
+        foreach (Sprite s in allItemSprites)
+        {
+            if (s.name == spriteName)
+            {
+                return s;
+            }
+        }
+
+        return null;
     }
 }

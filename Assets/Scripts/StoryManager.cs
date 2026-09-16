@@ -17,6 +17,9 @@ public class StoryManager : MonoBehaviour
     [Tooltip("The exact filename of the background sprite in Resources/Backgrounds (e.g. 'Village')")]
     public string currentBackgroundImageName = "";
 
+    [Tooltip("List of item names that the player has collected in the inventory.")]
+    public System.Collections.Generic.List<string> collectedItemNames = new System.Collections.Generic.List<string>();
+
     void Awake()
     {
         // Implement the Singleton pattern

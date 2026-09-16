@@ -44,6 +44,47 @@ public class InventoryItemUI : MonoBehaviour
         {
             iconImage.sprite = icon;
         }
+
+        // --- Save System Logic ---
+        if (StoryManager.Instance != null && StoryManager.Instance.collectedItemNames.Contains(itemName))
+        {
+            // The item is already collected in our save data
+            if (transform.parent != null && InventoryController.Instance != null && transform.parent == InventoryController.Instance.itemGrid)
+            {
+                // This is the persistent copy that is already living in the inventory.
+                isInInventory = true;
+            }
+            else
+            {
+                // This is a newly spawned copy from the Map Scene loading.
+                // Does the inventory already have this item?
+                bool alreadyInGrid = false;
+                if (InventoryController.Instance != null && InventoryController.Instance.itemGrid != null)
+                {
+                    foreach (Transform child in InventoryController.Instance.itemGrid)
+                    {
+                        InventoryItemUI existingItem = child.GetComponent<InventoryItemUI>();
+                        if (existingItem != null && existingItem.itemName == itemName)
+                        {
+                            alreadyInGrid = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (alreadyInGrid)
+                {
+                    // The persistent inventory already has this item, so destroy this duplicate world copy
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    // The inventory was cleared (e.g. because we just loaded a save file),
+                    // so we need to add this fresh world copy directly into the inventory!
+                    PickUpItem();
+                }
+            }
+        }
     }
 
     // Call this from the Button's OnClick event in the inspector
@@ -85,6 +126,12 @@ public class InventoryItemUI : MonoBehaviour
             // Refresh the pagination so the layout updates immediately
             InventoryController.Instance.UpdatePaginationUI();
             
+            // Register it in our save tracking system
+            if (StoryManager.Instance != null && !StoryManager.Instance.collectedItemNames.Contains(itemName))
+            {
+                StoryManager.Instance.collectedItemNames.Add(itemName);
+            }
+
             Debug.Log($"Picked up {itemName} and added to inventory!");
         }
         else

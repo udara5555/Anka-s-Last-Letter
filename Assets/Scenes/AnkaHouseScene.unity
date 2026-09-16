@@ -749,7 +749,7 @@ PrefabInstance:
     - target: {fileID: 3120577426854840708, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 5668723071718756358, guid: 08384dbd8371a7043a138029d7ef112b, type: 3}
+      objectReference: {fileID: 5668723071718756358, guid: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, type: 3}
     - target: {fileID: 3650766190994540982, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -845,7 +845,7 @@ PrefabInstance:
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: icon
       value: 
-      objectReference: {fileID: 5668723071718756358, guid: 08384dbd8371a7043a138029d7ef112b, type: 3}
+      objectReference: {fileID: 5668723071718756358, guid: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6, type: 3}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: itemName
       value: Dad's Letter

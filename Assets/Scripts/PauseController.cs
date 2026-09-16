@@ -52,7 +52,7 @@ public class PauseController : MonoBehaviour
             pausePanel.SetActive(isActive);
 
             // Find all root canvases in the scene to disable/enable their interactions
-            Canvas[] allCanvases = FindObjectsOfType<Canvas>();
+            Canvas[] allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
             foreach (Canvas canvas in allCanvases)
             {
                 if (canvas.isRootCanvas)
