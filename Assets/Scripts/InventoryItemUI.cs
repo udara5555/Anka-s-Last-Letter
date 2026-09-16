@@ -56,10 +56,9 @@ public class InventoryItemUI : MonoBehaviour
         else
         {
             // It's already in the inventory, just show the description
-            Debug.Log($"Clicked on item in inventory: {itemName}");
-            if (!string.IsNullOrEmpty(description))
+            if (InventoryController.Instance != null)
             {
-                Debug.Log($"Description: {description}");
+                InventoryController.Instance.ShowItemDetails(description, icon);
             }
         }
     }

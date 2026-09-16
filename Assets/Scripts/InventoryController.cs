@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventoryController : MonoBehaviour
 {
@@ -31,6 +32,11 @@ public class InventoryController : MonoBehaviour
     
     private int currentPage = 0;
 
+    [Header("Item Details Popup")]
+    public GameObject popupPanel;
+    public Image popupImage;
+    public TMP_Text popupDescriptionText;
+
     private void Awake()
     {
         if (Instance == null)
@@ -46,10 +52,15 @@ public class InventoryController : MonoBehaviour
 
     private void Start()
     {
-        // Ensure the inventory panel is disabled by default
+        // Ensure the inventory panel and popup are disabled by default
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(false);
+        }
+        
+        if (popupPanel != null)
+        {
+            popupPanel.SetActive(false);
         }
     }
 
@@ -142,6 +153,34 @@ public class InventoryController : MonoBehaviour
         {
             int maxPage = Mathf.Max(0, (totalItems - 1) / itemsPerPage);
             nextButton.interactable = currentPage < maxPage;
+        }
+    }
+
+    public void ShowItemDetails(string description, Sprite icon)
+    {
+        if (popupPanel != null)
+        {
+            popupPanel.SetActive(true);
+            
+            if (popupImage != null)
+            {
+                popupImage.sprite = icon;
+                // Only enable the image if there's actually an icon
+                popupImage.enabled = (icon != null);
+            }
+            
+            if (popupDescriptionText != null)
+            {
+                popupDescriptionText.text = description;
+            }
+        }
+    }
+
+    public void CloseItemDetails()
+    {
+        if (popupPanel != null)
+        {
+            popupPanel.SetActive(false);
         }
     }
 
