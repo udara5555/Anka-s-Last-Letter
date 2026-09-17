@@ -14,8 +14,17 @@ public class InventoryController : MonoBehaviour
     [Tooltip("Reference to the Backpack Button GameObject")]
     public GameObject backpackButton;
 
+    [Tooltip("Reference to the Hint Button GameObject")]
+    public GameObject hintButton;
+
+    [Tooltip("Reference to the Hint Panel GameObject")]
+    public GameObject hintPanel;
+
     [Tooltip("List of scene names where the backpack button should be hidden")]
     public string[] hideInScenes = { "Home", "OpenCutScene", "SaveScene" };
+
+    [Tooltip("List of scene names where the hint button should be hidden")]
+    public string[] hideHintInScenes = { "Home", "OpenCutScene", "SaveScene" };
 
     [Header("Pagination")]
     [Tooltip("The parent transform that has the Grid Layout Group and holds the items")]
@@ -74,6 +83,11 @@ public class InventoryController : MonoBehaviour
             popupPanel.SetActive(false);
         }
 
+        if (hintPanel != null)
+        {
+            hintPanel.SetActive(false);
+        }
+
         UpdateNewItemBadge();
     }
 
@@ -103,11 +117,22 @@ public class InventoryController : MonoBehaviour
             bool shouldHide = hideInScenes.Contains(scene.name);
             backpackButton.SetActive(!shouldHide);
         }
+
+        if (hintButton != null)
+        {
+            bool shouldHideHint = hideHintInScenes.Contains(scene.name);
+            hintButton.SetActive(!shouldHideHint);
+        }
         
         // Also ensure inventory panel is closed when entering a new scene
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(false);
+        }
+
+        if (hintPanel != null)
+        {
+            hintPanel.SetActive(false);
         }
 
         UpdateNewItemBadge();
