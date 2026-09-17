@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiraHouseScene.unity
     guid: 90ed857a967276146bc3fa4da04c32a6
+  - enabled: 1
+    path: Assets/Scenes/GeneralStoreScene.unity
+    guid: 108695240a7e18a4bb92d30474cd131b
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

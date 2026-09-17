@@ -1,162 +1,26 @@
 ANKA'S LAST LETTER
-CHAPTER 1 — THE LETTER THAT ARRIVED TOO LATE
-FULL DIALOGUE + GAMEPLAY TASK SCRIPT
+CHAPTER 1 — REVISED STORY + GAMEPLAY SCRIPT
+MAP-BASED VERSION
 
-==================================================
-GAMEPLAY DESIGN
-==================================================
+CURRENT PLAYER PROGRESS
+=======================
 
-Chapter goal:
-Anka receives a letter that appears to be from his father, who disappeared five years ago.
-The letter was written only three months ago and tells Anka to find Greyford's old railway station
-and ask about Platform Two.
+Scene 2 is already completed:
+- Anka has spoken with Mira.
+- Anka has Father's Letter.
+- Anka has Father's old Travel Bag.
+- Anka has the Family Photograph.
 
-The player should not simply follow waypoint markers. They should:
-- inspect objects
-- question NPCs
-- compare clues
-- craft simple equipment
-- solve environmental problems
-- remember information from previous conversations
+The chapter now continues from the Village Square.
 
-Main gameplay loop:
-EXPLORE -> TALK -> DISCOVER CLUE -> SOLVE PROBLEM -> CRAFT / USE ITEM -> TALK AGAIN
-
-==================================================
-SCENE 1 — ANKA'S HOUSE
-==================================================
-
-[Mother]
-Anka, you're awake. I thought you'd sleep longer.
-
-[Anka]
-I couldn't sleep properly.
-
-[Mother]
-I know.
-
-[Mother]
-Someone came to the village this morning.
-
-[Anka]
-Who?
-
-[Mother]
-I don't know. He only asked whether you still lived here.
-
-[Mother]
-He left this for you.
-
-[Anka]
-That handwriting... It's Dad's.
-
-[Mother]
-You recognize it?
-
-[Anka]
-How did you get this?
-
-[Mother]
-The traveler said it had to reach you.
-
-==================================================
-TASK 1 — INSPECT THE LETTER
-==================================================
-
-Player inspects:
-- Wax seal
-- Handwriting
-- Date
-- Address
-
-IMPORTANT DISCOVERY:
-The letter is dated THREE MONTHS AGO.
-
-[Anka]
-He disappeared five years ago...
-How did he write this three months ago?
-
-Letter:
-"If this letter reaches you, go to Greyford.
-Find the old railway station.
-Ask about Platform Two."
-
-[Anka]
-Platform Two?
-
-[Mother]
-There is no Platform Two anymore.
-
-[Anka]
-You know about it?
-
-[Mother]
-Your father didn't talk about Greyford much.
-
-==================================================
-TASK 2 — SEARCH THE HOUSE
-==================================================
-
-Player can inspect:
-- Father's old travel bag
-- Family photograph
-- Wooden toolbox
-- Mother's cupboard
-
-Discovery:
-An old railway work tag:
-"GREYFORD RAILWAY SERVICE"
-
-Optional discovery:
-A torn railway timetable.
-
-==================================================
-SCENE 2 — VILLAGE SQUARE
-==================================================
-
-[Mira]
-Anka! I've been looking everywhere for you.
-
-[Anka]
-Did you hear about the traveler?
-
-[Mira]
-Everyone did.
-
-[Anka]
-Did you see him?
-
-[Mira]
-Only from far away. Thomas spoke to him.
-
-==================================================
-TASK 3 — INVESTIGATE THE TRAVELER
-==================================================
-
-No quest marker.
-
-Player can:
-- Ask Mira
-- Ask Thomas
-- Inspect village gate
-- Talk to villagers
-- Inspect market
-
-Clue:
-The traveler walked toward the old mill.
-
-==================================================
 SCENE 3 — GENERAL STORE
-==================================================
-
-[Thomas]
-Morning, Anka.
+=======================
 
 [Anka]
-A traveler came here today.
+Thomas, did a traveler come here this morning?
 
 [Thomas]
-He did.
+He did. Brown coat. Didn't buy anything.
 
 [Anka]
 What did he want?
@@ -165,313 +29,262 @@ What did he want?
 He asked about your father.
 
 [Anka]
-What exactly?
+What did you tell him?
 
 [Thomas]
-He asked whether your father ever worked at Greyford Station.
+That your father used to work near Greyford.
 
 [Anka]
-Did he leave anything?
+What are you not telling me?
 
 [Thomas]
-Only this.
+He asked about the old bridge.
 
-ITEM:
-Old railway token marked:
-"GREYFORD — PLATFORM 2"
+TASK 1 — INVESTIGATE THE STORE
+------------------------------
 
-==================================================
-TASK 4 — CRAFT AN INVESTIGATION KIT
-==================================================
+Player can inspect:
+- Old railway supplies
+- Thomas's delivery records
+- Locked storage shelf
+- Village map
 
-Thomas sells:
-- Notebook
-- Charcoal pencil
-- Folding knife
-- Rope
+DISCOVERY:
+An old Greyford delivery receipt.
 
-Player chooses what to buy with limited money.
+CLUE:
+Father -> Greyford -> Village Bridge -> Town
 
-Craft:
-Notebook + charcoal = JOURNAL
-Rope + cloth strip = BASIC ROPE KIT
+SCENE 4 — ELDER'S HOUSE
+=======================
 
-==================================================
-SCENE 4 — OLD MILL
-==================================================
-
-Player inspects:
-- Door
-- Floor
-- Machinery
-- Wooden beams
-- Locked box
-- Footprints
-- Broken window
-
-==================================================
-TASK 5 — FOLLOW THE TRAVELER'S TRAIL
-==================================================
-
-Footprints lead:
-Door -> Storage room -> Back wall -> Broken window
-
-At window:
-A torn piece of brown fabric.
-
-ITEM:
-BROWN FABRIC
-
-Father's initials are carved into a beam.
+[Elder]
+Your father knew that bridge very well.
 
 [Anka]
-Dad...
+Why?
 
-==================================================
-TASK 6 — GET THE MILL KEY
-==================================================
+[Elder]
+He used it whenever he traveled toward Greyford.
 
-Storage room is locked.
+[Anka]
+Then I'll cross it.
 
-Player needs to investigate who may have a spare key.
+[Elder]
+You can't. It's damaged.
 
-Talk to Miller.
+[Anka]
+Can it be repaired?
 
-==================================================
+[Elder]
+Ask Bjorn.
+
+The Elder notices Anka's family photograph.
+
+[Elder]
+Where did you get that?
+
+[Anka]
+It belonged to Dad.
+
+The Elder becomes uncomfortable.
+
+This tells the player that the photograph may contain important information.
+
 SCENE 5 — FARM
-==================================================
+==============
 
 [Miller]
-You need the old mill key?
+Anka! Before you reach the bridge, I need some help.
 
 [Anka]
-Yes.
+What's wrong?
 
 [Miller]
-It was lost years ago.
+The irrigation gate broke during the storm.
 
 [Anka]
-Then how did my father get into that room?
+I'll fix it.
 
-[Miller]
-He didn't use the front door.
-
-Miller asks Anka to repair the irrigation gate.
-
-==================================================
-TASK 7 — REPAIR THE WATER CHANNEL
-==================================================
+TASK 2 — REPAIR THE IRRIGATION SYSTEM
+-------------------------------------
 
 Player must:
-1. Find where water stops.
-2. Find a missing wooden pin.
-3. Cut a replacement with the folding knife.
-4. Fit the pin.
-5. Turn the wooden gate.
-6. Redirect water to the field.
+1. Inspect the water channel.
+2. Find the broken wooden pin.
+3. Find suitable wood.
+4. Use the knife from the travel bag to shape it.
+5. Install the pin.
+6. Open the water gate.
 
-[Miller]
-You have your father's patience.
+REWARD:
+Strong Wood Piece
+
+The wood will later be used for bridge repair.
+
+SCENE 6 — BLACKSMITH
+====================
 
 [Anka]
-I don't remember him fixing things.
+The Elder said you can repair the bridge.
 
-[Miller]
-You didn't see everything he did.
+[Bjorn]
+I can repair part of it.
 
-Reward:
-MILL KEY
+[Anka]
+What do you need?
 
-==================================================
-SCENE 6 — OLD MILL STORAGE ROOM
-==================================================
+[Bjorn]
+Metal brackets and a strong wooden support.
 
-Player unlocks the room.
+[Anka]
+I have the wood.
 
-Objects:
-- Old calendar
-- Railway timetable
-- Wooden ruler
-- Metal box
+[Bjorn]
+Good. I'll provide the metal.
 
-==================================================
-TASK 8 — SOLVE THE BOX COMBINATION
-==================================================
+TASK 3 — CRAFT THE BRIDGE REPAIR KIT
+------------------------------------
 
-The box has a three-number lock.
+BJORN PROVIDES:
+- Iron Bar
+- Leather Strip
+
+PLAYER HAS:
+- Strong Wood Piece
+
+CRAFTING RECIPE:
+Iron Bar + Strong Wood + Leather Strip = BRIDGE REPAIR KIT
+
+SCENE 7 — WATERFALL INVESTIGATION
+=================================
+
+The player notices an abandoned campsite near the Waterfall.
+
+PLAYER CAN INSPECT:
+- Broken lantern
+- Empty food container
+- Brown cloth
+- Scrap of paper
+
+DISCOVERY:
+The brown cloth resembles the traveler's coat.
+
+Paper says:
+
+"Greyford — don't use the main road."
+
+[Anka]
+So the traveler came through here.
+
+TASK 4 — INVESTIGATE THE CAMPSITE
+---------------------------------
+
+Player must:
+- Compare the cloth with the traveler's description.
+- Inspect the paper.
+- Search the campsite for another clue.
+
+OPTIONAL CLUE:
+A small metal button matching the traveler's coat.
+
+SCENE 8 — OLD BRIDGE
+====================
+
+[Bjorn]
+Good. Let's see if this holds.
+
+TASK 5 — REPAIR THE OLD BRIDGE
+------------------------------
+
+Bridge interaction puzzle:
+1. Place wooden support.
+2. Attach metal brackets.
+3. Tighten leather straps.
+4. Push the damaged beam into place.
+5. Test the bridge.
+
+After repair, Anka notices a carving:
+
+A.C.
+
+[Anka]
+Dad was here.
+
+This is the first major physical proof connecting Anka's father to the village route.
+
+SCENE 9 — INSPECT FATHER'S TRAVEL BAG
+=====================================
+
+After discovering his father's initials, Anka checks the travel bag more carefully.
+
+PLAYER CAN INSPECT:
+- Main compartment
+- Inner pocket
+- Hidden bottom compartment
+- Old tag
+
+ITEMS DISCOVERED:
+- Old Compass
+- Railway Work Tag
+- Small Brass Key
+- Photograph Holder
+
+The photograph holder has a message:
+
+"Ask for the man who remembers Platform Two."
+
+[Anka]
+Platform Two...
+
+TASK 6 — CONNECT THE CLUES
+--------------------------
+
+Player opens the journal.
 
 Clues:
-Calendar -> circled date
-Timetable -> train departure time
-Ruler -> three unusual marks
+1. Father's Letter
+2. Greyford Delivery Receipt
+3. Brown Traveler Cloth
+4. Railway Work Tag
+5. Father's Initials on Bridge
+6. Platform Two message
 
-Player connects the clues to determine the combination.
+PLAYER connects:
+Father -> Railway
+Railway -> Greyford
+Greyford -> Platform Two
+Traveler -> Old Bridge
+Bridge -> Father's presence
 
-Inside:
-- Old photograph
-- Railway badge
-- Torn map
-- Letter fragment
-
-Letter fragment:
-"...do not send this through the station.
-Someone is watching the railway office."
-
-[Anka]
-Dad wasn't just working there.
-He was investigating something.
-
-==================================================
-SCENE 7 — BLACKSMITH
-==================================================
-
-[Bjorn]
-You look like you've found trouble.
-
-[Anka]
-I found this.
-
-[Bjorn]
-Your father had one of those.
-
-[Anka]
-What was he doing at the railway?
-
-[Bjorn]
-Asking questions.
-
-[Anka]
-About what?
-
-[Bjorn]
-Land purchases. Railway contracts. Northbridge Works.
-
-==================================================
-TASK 9 — CRAFT A REPAIR TOOL
-==================================================
-
-The bridge is damaged.
-
-Bjorn needs a:
-LEVER TOOL
-
-Required:
-- Iron bar -> Bjorn
-- Wooden handle -> old mill
-- Leather grip -> Miller
-
-Player must communicate with the NPCs and collect components.
-
-Workbench recipe:
-Iron bar + wooden handle + leather grip = LEVER TOOL
-
-==================================================
-SCENE 8 — OLD BRIDGE
-==================================================
-
-[Bjorn]
-Good. Put the lever under the beam.
-
-Player positions the tool correctly and repairs the bridge.
-
-A hidden metal maintenance plate becomes accessible.
-
-==================================================
-TASK 10 — OPEN THE RAILWAY MAINTENANCE PLATE
-==================================================
-
-Use the railway key.
-
-Inside:
-- Maintenance records
-- Map
-- Northbridge Works documents
-- Date from five years ago
-
-Marked line:
-"PLATFORM TWO — ACCESS CLOSED"
-
-[Anka]
-Platform Two existed.
-Someone removed it from the records.
-
-==================================================
-SCENE 9 — ELDER'S HOUSE
-==================================================
-
-[Elder]
-Your father asked me the same questions.
-
-[Anka]
-Then tell me the truth.
-
-[Elder]
-What did you find?
-
-[Anka]
-Northbridge Works.
-
-[Elder]
-...
-
-[Anka]
-You knew.
-
-[Elder]
-I knew enough to be afraid.
-
-[Anka]
-Afraid of what?
-
-[Elder]
-Your father believed Northbridge Works was buying land using false agreements.
-
-[Anka]
-And then he disappeared.
-
-[Elder]
-Yes.
-
-[Elder]
-If you want the truth, go to Greyford.
-There is an old service route through the forest.
-
-==================================================
-TASK 11 — CONNECT THE EVIDENCE
-==================================================
-
-Player opens journal.
-
-Evidence:
-1. Father's letter
-2. Railway badge
-3. Railway token
-4. Maintenance record
-5. Map
-6. Elder's information
-
-Player connects the clues:
-
-LETTER -> GREYFORD
-BADGE -> FATHER
-MAINTENANCE RECORD -> PLATFORM TWO
-MAP -> FOREST SERVICE ROAD
-
-Correct arrangement reveals:
-FOREST SERVICE ROUTE
-
-==================================================
 SCENE 10 — MIRA'S HOUSE
-==================================================
-
-[Mira]
-You're really going to Greyford.
+=======================
 
 [Anka]
-Yes.
+Mira, look at this.
+
+Anka shows the family photograph.
 
 [Mira]
-Then you'll need this.
+I've seen that man before.
+
+[Anka]
+Who is he?
+
+[Mira]
+I don't know his name.
+
+[Anka]
+Then where did you see him?
+
+[Mira]
+My father used to talk about him.
+
+[Anka]
+Where?
+
+[Mira]
+Greyford.
 
 Mira gives Anka a compass.
 
@@ -487,100 +300,168 @@ Then it's broken.
 [Mira]
 No. The needle is attracted to iron.
 
-==================================================
-TASK 12 — LEARN TO USE THE COMPASS
-==================================================
+TASK 7 — LEARN TO USE THE COMPASS
+---------------------------------
 
 Player tests the compass near:
 - Iron gate
 - Bridge
-- Tool chest
+- Blacksmith's tools
 - Railway debris
 
-Strongest signal points toward:
-FOREST SERVICE ROAD
+The compass reacts most strongly near old railway metal.
 
-The player learns to use environmental clues instead of quest markers.
+It points toward the Forest Path.
 
-==================================================
-SCENE 11 — VILLAGE EXIT
-==================================================
+SCENE 11 — FOREST PATH
+======================
 
-[Mother]
-You're going.
+The player follows the compass.
 
-[Anka]
-I have to.
+Along the path are old wooden markers.
 
-[Mother]
-Your father wanted to protect you.
+PLAYER MUST:
+1. Follow the compass.
+2. Inspect the wooden markers.
+3. Avoid dead-end paths.
+4. Find an abandoned railway sign.
+5. Read the sign.
 
-[Anka]
-By disappearing?
+SIGN:
+"GREYFORD — 12 KM"
 
-[Mother]
-He thought he was protecting us.
-
-[Anka]
-Then he should have come home.
-
-Mother gives Anka an old photograph.
-
-[Mother]
-Take this.
+The road ahead is blocked by fallen trees.
 
 [Anka]
-Why?
+So this is the road Dad used.
 
-[Mother]
-Because there is someone in this photograph you haven't met yet.
+[Anka]
+Greyford is waiting.
 
-Player inspects the photograph.
-
-A person in the background has been circled.
-
-==================================================
-FINAL TASK — LEAVE FOR GREYFORD
-==================================================
+FINAL TASK — PREPARE TO LEAVE
+=============================
 
 Player must:
-1. Equip notebook
-2. Equip compass
-3. Carry father's letter
-4. Choose one crafted tool
-5. Enter forest service road
+1. Equip Father's Letter.
+2. Equip the Compass.
+3. Carry the Travel Bag.
+4. Carry the Family Photograph.
+5. Choose one useful crafted tool.
+6. Reach the forest road.
 
-==================================================
 CHAPTER 1 END
-==================================================
+=============
 
 [System]
 CHAPTER 1 COMPLETE
 
 [System]
-New Objective:
-FOLLOW THE FOREST SERVICE ROAD TO GREYFORD.
+NEW OBJECTIVE:
+Find a way through the forest and reach Greyford.
 
 [Anka]
 Dad...
-What did you get yourself into?
+I'm coming.
 
 FADE OUT.
 
-==================================================
-PLAYER SKILLS INTRODUCED IN CHAPTER 1
-==================================================
+MAP LOCATION PURPOSES
+=====================
+
+Anka's House
+- Starting location
+- Letter
+- Travel Bag
+- Family Photo
+
+Village Square
+- Mira
+- Main NPC hub
+
+General Store
+- Thomas
+- Traveler information
+- Greyford receipt
+
+Elder's House
+- Father history
+- Story information
+
+Farm
+- Irrigation puzzle
+- Wood crafting material
+
+Blacksmith
+- Crafting
+- Bridge repair
+
+Waterfall
+- Traveler campsite
+- Hidden clue
+
+Old Bridge
+- Repair puzzle
+- Father's initials
+
+Mira's House
+- Compass
+- Family clue
+
+Forest Path
+- Compass puzzle
+- Chapter 1 exit
+
+Mountain Road
+- Locked for later chapter
+
+Old Mine
+- Later story area
+
+To the Town
+- Future Greyford / Chapter 2 route
+
+CHAPTER 1 MAIN GAMEPLAY FLOW
+============================
+
+Mira
+  ↓
+General Store
+  ↓
+Elder
+  ↓
+Farm
+  ↓
+Blacksmith
+  ↓
+Waterfall
+  ↓
+Craft Bridge Repair Kit
+  ↓
+Repair Old Bridge
+  ↓
+Inspect Father's Travel Bag
+  ↓
+Connect the Clues
+  ↓
+Mira's House
+  ↓
+Learn Compass
+  ↓
+Forest Path
+  ↓
+CHAPTER 1 COMPLETE
+
+CORE PLAYER ACTIVITIES
+======================
 
 Exploration
-NPC conversation
-Observation
+NPC communication
+Object inspection
 Clue collection
-Inventory
+Inventory management
 Crafting
-Environmental interaction
-Tool usage
 Environmental puzzles
 Evidence matching
-Object inspection
-Optional dialogue
-Limited-resource decisions
+Tool usage
+Optional investigation
+Story deduction
