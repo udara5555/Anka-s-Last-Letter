@@ -1179,8 +1179,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: craftableItemName
+      value: Clue 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: requiredStoryProgress
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: isRequiredCraftingItem
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8654926039890033429, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: m_Name

@@ -91,6 +91,78 @@ public class InventoryController : MonoBehaviour
         UpdateNewItemBadge();
     }
 
+    public void RemoveItemFromInventory(string itemName)
+    {
+        if (itemGrid == null || string.IsNullOrEmpty(itemName)) return;
+
+        for (int i = itemGrid.childCount - 1; i >= 0; i--)
+        {
+            InventoryItemUI itemUI = itemGrid.GetChild(i).GetComponent<InventoryItemUI>();
+            if (itemUI != null && itemUI.itemName == itemName)
+            {
+                Destroy(itemUI.gameObject);
+                break;
+            }
+        }
+
+        if (StoryManager.Instance != null)
+        {
+            StoryManager.Instance.collectedItemNames.Remove(itemName);
+        }
+    }
+
+    public void AddCraftedItem(GameObject craftedItemPrefab, string itemName, Sprite icon)
+    {
+        if (craftedItemPrefab == null || itemGrid == null || string.IsNullOrEmpty(itemName))
+        {
+            Debug.LogWarning("Cannot add crafted item: missing prefab, item name, or inventory grid.");
+            return;
+        }
+
+        GameObject craftedObject = Instantiate(craftedItemPrefab, itemGrid);
+        craftedObject.transform.localScale = Vector3.one;
+
+        CraftedItem craftedItem = craftedObject.GetComponent<CraftedItem>();
+        if (craftedItem != null)
+        {
+            craftedItem.Configure(itemName, icon);
+        }
+        else
+        {
+            InventoryItemUI itemUI = craftedObject.GetComponent<InventoryItemUI>();
+            if (itemUI == null)
+            {
+                itemUI = craftedObject.AddComponent<InventoryItemUI>();
+            }
+
+            itemUI.itemName = itemName;
+            itemUI.icon = icon;
+            itemUI.iconImage = craftedObject.GetComponent<Image>();
+            itemUI.nameTextObject = craftedObject.GetComponentInChildren<TMP_Text>(true)?.gameObject;
+        }
+
+        if (StoryManager.Instance != null && !StoryManager.Instance.collectedItemNames.Contains(itemName))
+        {
+            StoryManager.Instance.collectedItemNames.Add(itemName);
+        }
+
+        Button craftedButton = craftedObject.GetComponent<Button>();
+        if (craftedButton == null)
+        {
+            craftedButton = craftedObject.AddComponent<Button>();
+        }
+
+        craftedButton.onClick.RemoveAllListeners();
+        InventoryItemUI craftedUI = craftedObject.GetComponent<InventoryItemUI>();
+        if (craftedUI != null)
+        {
+            craftedButton.onClick.AddListener(craftedUI.OnItemClicked);
+        }
+
+        UpdatePaginationUI();
+        UpdateNewItemBadge();
+    }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -256,6 +328,12 @@ public class InventoryController : MonoBehaviour
                 itemUI.itemName = savedItem.itemName;
                 itemUI.description = savedItem.description;
                 itemUI.hasBeenOpened = savedItem.hasBeenOpened;
+                itemUI.craftableItemName = savedItem.craftableItemName;
+                itemUI.isRequiredCraftingItem = savedItem.isRequiredCraftingItem;
+                if (!string.IsNullOrEmpty(savedItem.craftedItemUISpriteName))
+                {
+                    itemUI.craftedItemUISprite = LoadSpriteFromResources(savedItem.craftedItemUISpriteName);
+                }
 
                 // Try to load the icon sprite from Resources/ItemIcons/
                 if (!string.IsNullOrEmpty(savedItem.iconSpriteName))

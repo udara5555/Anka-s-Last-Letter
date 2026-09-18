@@ -18,6 +18,16 @@ public class InventoryItemUI : MonoBehaviour
     [Tooltip("Check this box if picking up this item should advance the main story progress!")]
     public bool advancesStory = false;
 
+    [Header("Crafting")]
+    [Tooltip("Name of the item that can be crafted with this item. Leave empty if this item is not a crafting ingredient.")]
+    public string craftableItemName;
+
+    [Tooltip("Check this item if it is required for the configured craftable item.")]
+    public bool isRequiredCraftingItem = false;
+
+    [Tooltip("Sprite shown for the crafted item when this ingredient belongs to its recipe.")]
+    public Sprite craftedItemUISprite;
+
     [Header("UI References")]
     [Tooltip("The Image component that displays the icon. Optional if this GameObject already has an Image component.")]
     public Image iconImage;

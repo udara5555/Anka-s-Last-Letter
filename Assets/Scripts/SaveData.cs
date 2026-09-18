@@ -7,6 +7,9 @@ public class ItemSaveData
     public string description;
     public string iconSpriteName; // Sprite name for Resources.Load("ItemIcons/<name>")
     public bool hasBeenOpened;   // Tracks if item has been inspected by player
+    public string craftableItemName;
+    public bool isRequiredCraftingItem;
+    public string craftedItemUISpriteName;
 }
 
 [Serializable]

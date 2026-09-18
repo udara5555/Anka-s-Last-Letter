@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class WorkbenchController : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class WorkbenchController : MonoBehaviour
 
     [Tooltip("Reference to the Close Button inside WorkPanel")]
     public Button closeButton;
+
+    [Tooltip("Reference to the Craft Button inside WorkPanel. It is shown only when a valid recipe is selected.")]
+    public Button craftButton;
+
+    [Tooltip("Prefab used for the crafted item that is added to the inventory.")]
+    public GameObject craftedItemPrefab;
 
     [Header("Workbench Inventory Display")]
     [Tooltip("Parent transform inside WorkPanel to display inventory items (Assign 'ItemPanel' here!)")]
@@ -36,11 +43,14 @@ public class WorkbenchController : MonoBehaviour
     private void Awake()
     {
         AutoFindReferences();
+        ResetCraftSelection();
     }
 
     private void Start()
     {
         AutoFindReferences();
+
+        ResetCraftSelection();
 
         // Hook up button listeners automatically
         if (workbenchButton != null)
@@ -53,6 +63,12 @@ public class WorkbenchController : MonoBehaviour
         {
             closeButton.onClick.RemoveListener(CloseWorkbench);
             closeButton.onClick.AddListener(CloseWorkbench);
+        }
+
+        if (craftButton != null)
+        {
+            craftButton.onClick.RemoveListener(CraftSelectedItems);
+            craftButton.onClick.AddListener(CraftSelectedItems);
         }
     }
 
@@ -135,6 +151,16 @@ public class WorkbenchController : MonoBehaviour
                 closeButton = closeBtnTransform.GetComponent<Button>();
             }
         }
+
+        // 5. Auto-find CraftButton inside WorkPanel
+        if (craftButton == null && workPanel != null)
+        {
+            Transform craftBtnTransform = workPanel.transform.Find("CraftButton");
+            if (craftBtnTransform != null)
+            {
+                craftButton = craftBtnTransform.GetComponent<Button>();
+            }
+        }
     }
 
     /// <summary>
@@ -161,6 +187,8 @@ public class WorkbenchController : MonoBehaviour
         {
             workPanel.SetActive(false);
         }
+
+        ResetCraftSelection();
     }
 
     /// <summary>
@@ -177,6 +205,7 @@ public class WorkbenchController : MonoBehaviour
         }
 
         // Clear old workbench slots first
+        ResetCraftSelection();
         for (int i = workbenchItemGrid.childCount - 1; i >= 0; i--)
         {
             DestroyImmediate(workbenchItemGrid.GetChild(i).gameObject);
@@ -191,6 +220,21 @@ public class WorkbenchController : MonoBehaviour
 
         // Gather all collected items
         List<ItemDisplayData> itemsToDisplay = GetCollectedItems();
+
+        foreach (ItemDisplayData item in itemsToDisplay)
+        {
+            if (item.isRequiredCraftingItem && !string.IsNullOrEmpty(item.craftableItemName))
+            {
+                int count;
+                requiredItemCountByRecipe.TryGetValue(item.craftableItemName, out count);
+                requiredItemCountByRecipe[item.craftableItemName] = count + 1;
+
+                if (!craftedIconByRecipe.ContainsKey(item.craftableItemName) && item.craftedItemUISprite != null)
+                {
+                    craftedIconByRecipe[item.craftableItemName] = item.craftedItemUISprite;
+                }
+            }
+        }
 
         if (itemsToDisplay.Count == 0)
         {
@@ -226,6 +270,8 @@ public class WorkbenchController : MonoBehaviour
             // Destroy() only removes at end of frame, so InventoryItemUI.Start() would still
             // run and set CanvasGroup.alpha = 0. DestroyImmediate prevents this.
             InventoryItemUI slotItemUI = slotObj.GetComponent<InventoryItemUI>();
+            string craftableItemName = item.craftableItemName;
+            bool isRequiredCraftingItem = item.isRequiredCraftingItem;
             if (slotItemUI != null)
             {
                 DestroyImmediate(slotItemUI);
@@ -279,7 +325,7 @@ public class WorkbenchController : MonoBehaviour
                 string itemDescCopy = item.description;
 
                 slotButton.onClick.RemoveAllListeners();
-                slotButton.onClick.AddListener(() => OnWorkbenchItemSelected(itemNameCopy, itemIconCopy, itemDescCopy));
+                slotButton.onClick.AddListener(() => OnWorkbenchItemSelected(itemNameCopy, itemIconCopy, itemDescCopy, craftableItemName, isRequiredCraftingItem, slotButton));
             }
 
             Debug.Log($"[WorkbenchController] Created slot for '{item.itemName}' | icon: {(item.icon != null ? item.icon.name : "NULL")} | active: {slotObj.activeSelf} | parent: {slotObj.transform.parent?.name}");
@@ -329,6 +375,84 @@ public class WorkbenchController : MonoBehaviour
         public string itemName;
         public Sprite icon;
         public string description;
+        public string craftableItemName;
+        public bool isRequiredCraftingItem;
+        public Sprite craftedItemUISprite;
+    }
+
+    private readonly HashSet<string> selectedItemNames = new HashSet<string>();
+    private readonly Dictionary<string, string> selectedRecipeByItem = new Dictionary<string, string>();
+    private readonly Dictionary<string, int> requiredItemCountByRecipe = new Dictionary<string, int>();
+    private readonly Dictionary<string, Sprite> craftedIconByRecipe = new Dictionary<string, Sprite>();
+
+    private void ResetCraftSelection()
+    {
+        selectedItemNames.Clear();
+        selectedRecipeByItem.Clear();
+        requiredItemCountByRecipe.Clear();
+        craftedIconByRecipe.Clear();
+
+        if (craftButton != null)
+        {
+            craftButton.gameObject.SetActive(false);
+            craftButton.interactable = false;
+        }
+    }
+
+    private void UpdateCraftButton()
+    {
+        if (craftButton == null) return;
+
+        bool hasEnoughItems = selectedItemNames.Count >= 2;
+        bool validRecipe = hasEnoughItems && selectedRecipeByItem.Count == selectedItemNames.Count;
+
+        if (validRecipe)
+        {
+            string recipeName = selectedRecipeByItem.Values.First();
+            validRecipe = selectedRecipeByItem.Values.All(value => value == recipeName);
+
+            if (validRecipe)
+            {
+                int requiredItemCount;
+                validRecipe = requiredItemCountByRecipe.TryGetValue(recipeName, out requiredItemCount)
+                    && requiredItemCount == selectedItemNames.Count;
+            }
+        }
+
+        craftButton.gameObject.SetActive(hasEnoughItems);
+        craftButton.interactable = validRecipe;
+    }
+
+    private void CraftSelectedItems()
+    {
+        if (craftButton == null || !craftButton.interactable) return;
+
+        string craftedItemName = selectedRecipeByItem.Values.First();
+        Sprite craftedItemIcon = craftedIconByRecipe.ContainsKey(craftedItemName)
+            ? craftedIconByRecipe[craftedItemName]
+            : null;
+
+        if (craftedItemPrefab == null)
+        {
+            Debug.LogError("[WorkbenchController] Cannot craft: craftedItemPrefab is not assigned.");
+            return;
+        }
+
+        if (InventoryController.Instance == null)
+        {
+            Debug.LogError("[WorkbenchController] Cannot craft: InventoryController is missing.");
+            return;
+        }
+
+        foreach (string ingredientName in selectedItemNames.ToArray())
+        {
+            InventoryController.Instance.RemoveItemFromInventory(ingredientName);
+        }
+
+        InventoryController.Instance.AddCraftedItem(craftedItemPrefab, craftedItemName, craftedItemIcon);
+
+        Debug.Log($"[WorkbenchController] Crafted '{craftedItemName}' from: {string.Join(", ", selectedItemNames.ToArray())}");
+        RefreshWorkbenchItems();
     }
 
     /// <summary>
@@ -352,7 +476,10 @@ public class WorkbenchController : MonoBehaviour
                     {
                         itemName = item.itemName,
                         icon = item.icon,
-                        description = item.description
+                        description = item.description,
+                        craftableItemName = item.craftableItemName,
+                        isRequiredCraftingItem = item.isRequiredCraftingItem,
+                        craftedItemUISprite = item.craftedItemUISprite
                     });
                     addedNames.Add(item.itemName);
                 }
@@ -407,9 +534,28 @@ public class WorkbenchController : MonoBehaviour
     /// <summary>
     /// Called when an inventory item inside the workbench is clicked.
     /// </summary>
-    public void OnWorkbenchItemSelected(string itemName, Sprite icon, string description)
+    public void OnWorkbenchItemSelected(string itemName, Sprite icon, string description,
+        string craftableItemName, bool isRequiredCraftingItem, Button itemButton)
     {
         Debug.Log($"[WorkbenchController] Selected item in Workbench: {itemName}");
+
+        if (selectedItemNames.Contains(itemName))
+        {
+            selectedItemNames.Remove(itemName);
+            selectedRecipeByItem.Remove(itemName);
+            SetItemSelectedVisual(itemButton, false);
+        }
+        else
+        {
+            selectedItemNames.Add(itemName);
+            if (isRequiredCraftingItem && !string.IsNullOrEmpty(craftableItemName))
+            {
+                selectedRecipeByItem[itemName] = craftableItemName;
+            }
+            SetItemSelectedVisual(itemButton, true);
+        }
+
+        UpdateCraftButton();
 
         if (selectedItemNameText != null)
         {
@@ -431,5 +577,14 @@ public class WorkbenchController : MonoBehaviour
         {
             InventoryController.Instance.ShowItemDetails(description, icon);
         }
+    }
+
+    private void SetItemSelectedVisual(Button itemButton, bool selected)
+    {
+        if (itemButton == null) return;
+
+        ColorBlock colors = itemButton.colors;
+        colors.normalColor = selected ? new Color(0.75f, 1f, 0.75f) : Color.white;
+        itemButton.colors = colors;
     }
 }
