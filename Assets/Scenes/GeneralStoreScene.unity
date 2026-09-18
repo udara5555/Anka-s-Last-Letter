@@ -1168,11 +1168,11 @@ PrefabInstance:
       objectReference: {fileID: -6114607658922055527, guid: a18c3bab66c19c74eb0a4d95e21a1db5, type: 3}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: itemName
-      value: An old Greyford delivery receipt.
+      value: Thomas's old delivery records
       objectReference: {fileID: 0}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: description
-      value: Thomas's old delivery records
+      value: An old Greyford delivery receipt.
       objectReference: {fileID: 0}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: advancesStory

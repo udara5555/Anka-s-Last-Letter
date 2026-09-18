@@ -123,6 +123,11 @@ public class InventoryItemUI : MonoBehaviour
         else
         {
             SetItemVisibility(true);
+            // Item is already in the inventory — show the name text that was hidden above
+            if (nameTextObject != null)
+            {
+                nameTextObject.SetActive(true);
+            }
         }
     }
 

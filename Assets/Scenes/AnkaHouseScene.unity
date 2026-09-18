@@ -1077,7 +1077,7 @@ PrefabInstance:
       objectReference: {fileID: -1570818060750389772, guid: f209ea94b66c13342948f476975d1dea, type: 3}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: itemName
-      value: Father's old travel bag
+      value: Father's Old Travel Bag
       objectReference: {fileID: 0}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: description
