@@ -28,6 +28,10 @@ public class InventoryItemUI : MonoBehaviour
     [Tooltip("Sprite shown for the crafted item when this ingredient belongs to its recipe.")]
     public Sprite craftedItemUISprite;
 
+    [Tooltip("Description shown when the crafted item is inspected.")]
+    [TextArea(3, 10)]
+    public string craftedItemDescription;
+
     [Header("UI References")]
     [Tooltip("The Image component that displays the icon. Optional if this GameObject already has an Image component.")]
     public Image iconImage;

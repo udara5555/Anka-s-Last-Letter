@@ -1098,8 +1098,20 @@ PrefabInstance:
       value: Clue 1
       objectReference: {fileID: 0}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: craftedItemUISprite
+      value: 
+      objectReference: {fileID: -7643922636992528134, guid: 1270115109303654ca8491d28c6085d3, type: 3}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: requiredStoryProgress
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
+      propertyPath: craftedItemDescription
+      value: 'Father -> Greyford -> Village Bridge -> Town
+
+
+        Key to Greyford
+        is the village bridge'
       objectReference: {fileID: 0}
     - target: {fileID: 4332019438483043788, guid: 877412019d2a77b4d823af2be77d0727, type: 3}
       propertyPath: isRequiredCraftingItem

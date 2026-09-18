@@ -111,6 +111,7 @@ public class SaveSlotUI : MonoBehaviour
                         itemData.craftableItemName = itemUI.craftableItemName;
                         itemData.isRequiredCraftingItem = itemUI.isRequiredCraftingItem;
                         itemData.craftedItemUISpriteName = itemUI.craftedItemUISprite != null ? itemUI.craftedItemUISprite.name : "";
+                        itemData.craftedItemDescription = itemUI.craftedItemDescription;
                         items.Add(itemData);
                     }
                 }

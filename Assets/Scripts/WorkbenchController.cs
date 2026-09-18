@@ -233,6 +233,12 @@ public class WorkbenchController : MonoBehaviour
                 {
                     craftedIconByRecipe[item.craftableItemName] = item.craftedItemUISprite;
                 }
+
+                if (!craftedDescriptionByRecipe.ContainsKey(item.craftableItemName)
+                    && !string.IsNullOrEmpty(item.craftedItemDescription))
+                {
+                    craftedDescriptionByRecipe[item.craftableItemName] = item.craftedItemDescription;
+                }
             }
         }
 
@@ -378,12 +384,14 @@ public class WorkbenchController : MonoBehaviour
         public string craftableItemName;
         public bool isRequiredCraftingItem;
         public Sprite craftedItemUISprite;
+        public string craftedItemDescription;
     }
 
     private readonly HashSet<string> selectedItemNames = new HashSet<string>();
     private readonly Dictionary<string, string> selectedRecipeByItem = new Dictionary<string, string>();
     private readonly Dictionary<string, int> requiredItemCountByRecipe = new Dictionary<string, int>();
     private readonly Dictionary<string, Sprite> craftedIconByRecipe = new Dictionary<string, Sprite>();
+    private readonly Dictionary<string, string> craftedDescriptionByRecipe = new Dictionary<string, string>();
 
     private void ResetCraftSelection()
     {
@@ -391,10 +399,11 @@ public class WorkbenchController : MonoBehaviour
         selectedRecipeByItem.Clear();
         requiredItemCountByRecipe.Clear();
         craftedIconByRecipe.Clear();
+        craftedDescriptionByRecipe.Clear();
 
         if (craftButton != null)
         {
-            craftButton.gameObject.SetActive(false);
+            craftButton.gameObject.SetActive(true);
             craftButton.interactable = false;
         }
     }
@@ -403,8 +412,8 @@ public class WorkbenchController : MonoBehaviour
     {
         if (craftButton == null) return;
 
-        bool hasEnoughItems = selectedItemNames.Count >= 2;
-        bool validRecipe = hasEnoughItems && selectedRecipeByItem.Count == selectedItemNames.Count;
+        bool validRecipe = selectedItemNames.Count >= 2
+            && selectedRecipeByItem.Count == selectedItemNames.Count;
 
         if (validRecipe)
         {
@@ -419,7 +428,7 @@ public class WorkbenchController : MonoBehaviour
             }
         }
 
-        craftButton.gameObject.SetActive(hasEnoughItems);
+        craftButton.gameObject.SetActive(true);
         craftButton.interactable = validRecipe;
     }
 
@@ -431,6 +440,9 @@ public class WorkbenchController : MonoBehaviour
         Sprite craftedItemIcon = craftedIconByRecipe.ContainsKey(craftedItemName)
             ? craftedIconByRecipe[craftedItemName]
             : null;
+        string craftedItemDescription = craftedDescriptionByRecipe.ContainsKey(craftedItemName)
+            ? craftedDescriptionByRecipe[craftedItemName]
+            : "";
 
         if (craftedItemPrefab == null)
         {
@@ -449,7 +461,7 @@ public class WorkbenchController : MonoBehaviour
             InventoryController.Instance.RemoveItemFromInventory(ingredientName);
         }
 
-        InventoryController.Instance.AddCraftedItem(craftedItemPrefab, craftedItemName, craftedItemIcon);
+        InventoryController.Instance.AddCraftedItem(craftedItemPrefab, craftedItemName, craftedItemIcon, craftedItemDescription);
 
         Debug.Log($"[WorkbenchController] Crafted '{craftedItemName}' from: {string.Join(", ", selectedItemNames.ToArray())}");
         RefreshWorkbenchItems();
@@ -479,7 +491,8 @@ public class WorkbenchController : MonoBehaviour
                         description = item.description,
                         craftableItemName = item.craftableItemName,
                         isRequiredCraftingItem = item.isRequiredCraftingItem,
-                        craftedItemUISprite = item.craftedItemUISprite
+                        craftedItemUISprite = item.craftedItemUISprite,
+                        craftedItemDescription = item.craftedItemDescription
                     });
                     addedNames.Add(item.itemName);
                 }

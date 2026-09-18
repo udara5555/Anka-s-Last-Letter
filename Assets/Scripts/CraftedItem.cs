@@ -4,7 +4,7 @@ using TMPro;
 
 public class CraftedItem : MonoBehaviour
 {
-    public void Configure(string itemName, Sprite icon)
+    public void Configure(string itemName, Sprite icon, string description)
     {
         InventoryItemUI itemUI = GetComponent<InventoryItemUI>();
         if (itemUI == null)
@@ -16,6 +16,7 @@ public class CraftedItem : MonoBehaviour
         TMP_Text itemNameText = GetComponentInChildren<TMP_Text>(true);
 
         itemUI.itemName = itemName;
+        itemUI.description = description;
         itemUI.icon = icon;
         itemUI.iconImage = itemImage;
         itemUI.nameTextObject = itemNameText != null ? itemNameText.gameObject : null;

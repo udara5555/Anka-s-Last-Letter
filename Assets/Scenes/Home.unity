@@ -1618,7 +1618,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StoryHint
   hintText: {fileID: 1238006035}
   hints:
+  - Talk to mother
   - Pickup the letter
+  - Talk to mother
+  - pickup Items
+  - pickup Items
+  - Talk to Mira
+  - Talk to Thomus
 --- !u!1 &1664699313
 GameObject:
   m_ObjectHideFlags: 0

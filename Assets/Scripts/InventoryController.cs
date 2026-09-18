@@ -111,7 +111,7 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void AddCraftedItem(GameObject craftedItemPrefab, string itemName, Sprite icon)
+    public void AddCraftedItem(GameObject craftedItemPrefab, string itemName, Sprite icon, string description)
     {
         if (craftedItemPrefab == null || itemGrid == null || string.IsNullOrEmpty(itemName))
         {
@@ -125,7 +125,7 @@ public class InventoryController : MonoBehaviour
         CraftedItem craftedItem = craftedObject.GetComponent<CraftedItem>();
         if (craftedItem != null)
         {
-            craftedItem.Configure(itemName, icon);
+            craftedItem.Configure(itemName, icon, description);
         }
         else
         {
@@ -136,6 +136,7 @@ public class InventoryController : MonoBehaviour
             }
 
             itemUI.itemName = itemName;
+            itemUI.description = description;
             itemUI.icon = icon;
             itemUI.iconImage = craftedObject.GetComponent<Image>();
             itemUI.nameTextObject = craftedObject.GetComponentInChildren<TMP_Text>(true)?.gameObject;
@@ -330,6 +331,7 @@ public class InventoryController : MonoBehaviour
                 itemUI.hasBeenOpened = savedItem.hasBeenOpened;
                 itemUI.craftableItemName = savedItem.craftableItemName;
                 itemUI.isRequiredCraftingItem = savedItem.isRequiredCraftingItem;
+                itemUI.craftedItemDescription = savedItem.craftedItemDescription;
                 if (!string.IsNullOrEmpty(savedItem.craftedItemUISpriteName))
                 {
                     itemUI.craftedItemUISprite = LoadSpriteFromResources(savedItem.craftedItemUISpriteName);

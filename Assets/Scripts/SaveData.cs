@@ -10,6 +10,7 @@ public class ItemSaveData
     public string craftableItemName;
     public bool isRequiredCraftingItem;
     public string craftedItemUISpriteName;
+    public string craftedItemDescription;
 }
 
 [Serializable]
